@@ -6,7 +6,7 @@
 /*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:36:29 by schahir           #+#    #+#             */
-/*   Updated: 2024/12/10 18:25:05 by schahir          ###   ########.fr       */
+/*   Updated: 2025/02/13 22:37:22 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	printptr_helper(t_format flag, size_t n)
 	{
 		if (flag.wdth > 5 && !flag.minus)
 			total += ft_putnchar(' ', flag.wdth - 5);
-		total += write(1, "(nil)", 5);
+		total += write(2, "(nil)", 5);
 		if (flag.wdth > 5 && flag.minus)
 			total += ft_putnchar(' ', flag.wdth - 5);
 		return (total);
@@ -42,7 +42,7 @@ static int	printptr_helper(t_format flag, size_t n)
 	flag.wdth -= 2;
 	if (!flag.minus && flag.wdth > flag.precision && !flag.zero)
 		total += ft_putnchar(' ', flag.wdth - flag.precision);
-	total += write(1, "0x", 2);
+	total += write(2, "0x", 2);
 	total += ft_putnchar('0', flag.precision - len);
 	total += ft_puthex(flag, n, n);
 	if (flag.minus && flag.wdth > flag.precision)

@@ -6,7 +6,7 @@
 /*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:36:29 by schahir           #+#    #+#             */
-/*   Updated: 2024/12/10 18:24:48 by schahir          ###   ########.fr       */
+/*   Updated: 2025/02/13 22:37:05 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	process_format(const char **str, va_list args)
 	total = 0;
 	if (!validate_format(start))
 	{
-		total += write(1, start, 1);
+		total += write(2, start, 1);
 		(*str)++;
 		return (total);
 	}

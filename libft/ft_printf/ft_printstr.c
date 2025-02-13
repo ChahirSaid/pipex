@@ -6,7 +6,7 @@
 /*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:36:29 by schahir           #+#    #+#             */
-/*   Updated: 2024/12/10 18:25:12 by schahir          ###   ########.fr       */
+/*   Updated: 2025/02/13 22:37:29 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_null(t_format flag)
 int	ft_putnstr(char *s, int n)
 {
 	if (s)
-		return (write(1, s, n));
+		return (write(2, s, n));
 	return (0);
 }
 

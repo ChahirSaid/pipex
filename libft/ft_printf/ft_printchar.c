@@ -6,7 +6,7 @@
 /*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:36:29 by schahir           #+#    #+#             */
-/*   Updated: 2024/12/10 18:24:38 by schahir          ###   ########.fr       */
+/*   Updated: 2025/02/13 22:36:52 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  */
 int	ft_putchar(char c)
 {
-	return (write(1, &c, 1));
+	return (write(2, &c, 1));
 }
 
 /**
@@ -39,7 +39,7 @@ int	ft_putnchar(char c, int n)
 
 	total = 0;
 	while (n-- > 0)
-		total += write(1, &c, 1);
+		total += write(2, &c, 1);
 	return (total);
 }
 

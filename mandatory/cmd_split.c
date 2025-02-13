@@ -5,7 +5,8 @@ int ft_countwords(const char *str)
     int count = 0;
     int inWord = 0;
 
-    while (*str) {
+    while (*str)
+    {
         if (*str == ' ')
             inWord = 0;
         else if (!inWord)
@@ -15,14 +16,14 @@ int ft_countwords(const char *str)
         }
         str++;
     }
-    return count;
+    return (count);
 }
 
 static char *ft_worddup(const char *str, int len)
 {
     char *copy = malloc(len + 1);
     if (!copy)
-        return NULL;
+        return (NULL);
     ft_strlcpy(copy, str, len + 1);
     return copy;
 }
@@ -38,6 +39,7 @@ static char **ft_free_splits(char **strs, int count)
 char **cmd_split(char const *s)
 {
     int wordCount;
+    int i;
     const char *start;
 
     if (!s)
@@ -46,8 +48,7 @@ char **cmd_split(char const *s)
     char **strs = malloc(sizeof(char *) * (wordCount + 1));
     if (!strs)
         return NULL;
-
-    int i = 0;
+    i = 0;
     while (*s)
     {
         while (*s == ' ')
@@ -62,9 +63,8 @@ char **cmd_split(char const *s)
                 s++;
             int len = s - start;
             strs[i] = ft_worddup(start, len);
-            if (!strs[i]) {
+            if (!strs[i])
                 return ft_free_splits(strs, i);
-            }
             i++;
             if (*s)
                 s++;   
