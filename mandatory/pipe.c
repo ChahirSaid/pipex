@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:44:02 by schahir           #+#    #+#             */
-/*   Updated: 2025/02/10 20:35:41 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/13 01:37:29 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ void	ft_cmd1(t_pipex *pipex)
 	}
 	if (pipex->pid1 == 0)
 	{
+		if (!pipex->cmd1[0])
+		{
+			ft_printf("pipex: command not found: \n");
+			ft_free(pipex);
+			exit(127);
+		}
+		if (pipex->fd1 == -1)
+		{
+			close(pipex->fd2);
+			ft_printf("pipex: outfile");
+			ft_free(pipex);
+			exit(1);
+		}
 		close(pipex->pipefd[0]);
 		dup2(pipex->pipefd[1], STDOUT_FILENO);
 		close(pipex->pipefd[1]);
@@ -53,6 +66,19 @@ void	ft_cmd2(t_pipex *pipex)
 	}
 	if (pipex->pid2 == 0)
 	{
+		if (!pipex->cmd2[0])
+		{
+			ft_printf("pipex: command not found: \n");
+			ft_free(pipex);
+			exit(127);
+		}
+		if (pipex->fd2 == -1)
+		{
+			close(pipex->fd1);
+			ft_printf("pipex: outfile");
+			ft_free(pipex);
+			exit(1);
+		}
 		close(pipex->pipefd[1]);
 		dup2(pipex->pipefd[0], STDIN_FILENO);
 		close(pipex->pipefd[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:42:50 by schahir           #+#    #+#             */
-/*   Updated: 2025/02/10 20:36:59 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:12:00 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,7 @@ void	ft_init(t_pipex *pipex, char **av, char **envp)
 	a = pipex->cmd1[0];
 	b = pipex->cmd2[0];
 	pipex->cmd1[0] = get_path(pipex, a);
-	if (!pipex->cmd1[0])
-	{
-		ft_printf("pipex: command not found: %s\n", a);
-		ft_free(pipex);
-		exit(127);
-	}
 	pipex->cmd2[0] = get_path(pipex, b);
-	if (!pipex->cmd2[0])
-	{
-		ft_printf("pipex: command not found: %s\n", b);
-		ft_free(pipex);
-		exit(127);
-	}
 	if (a != pipex->cmd1[0])
 		free(a);
 	if (b != pipex->cmd2[0])
@@ -58,7 +46,10 @@ void	ft_init(t_pipex *pipex, char **av, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_pipex	pipex;
+	int (status1), (status2);
 
+	status1 = 0;
+	status2 = 0;
 	if (ac != 5 || !av[2][0] || !av[3][0])
 	{
 		ft_printf("Invalid input.\n");
@@ -68,8 +59,8 @@ int	main(int ac, char **av, char **envp)
 	ft_open(&pipex);
 	ft_cmd1(&pipex);
 	ft_cmd2(&pipex);
-	waitpid(pipex.pid1, NULL, 0);
-	waitpid(pipex.pid2, NULL, 0);
+	waitpid(pipex.pid1, &status1, WUNTRACED);
+	waitpid(pipex.pid2, &status2, WUNTRACED);
 	ft_free(&pipex);
-	return (0);
+	exit(WEXITSTATUS(status2));
 }
