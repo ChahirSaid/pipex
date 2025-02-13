@@ -1,12 +1,15 @@
 #include "pipex.h"
 
-int ft_countwords(const char *str) {
+int ft_countwords(const char *str)
+{
     int count = 0;
     int inWord = 0;
+
     while (*str) {
-        if (*str == ' ') {
+        if (*str == ' ')
             inWord = 0;
-        } else if (!inWord) {
+        else if (!inWord)
+        {
             inWord = 1;
             count++;
         }
@@ -15,7 +18,8 @@ int ft_countwords(const char *str) {
     return count;
 }
 
-static char *ft_worddup(const char *str, int len) {
+static char *ft_worddup(const char *str, int len)
+{
     char *copy = malloc(len + 1);
     if (!copy)
         return NULL;
@@ -23,35 +27,37 @@ static char *ft_worddup(const char *str, int len) {
     return copy;
 }
 
-static char **ft_free_splits(char **strs, int count) {
-    for (int i = 0; i < count; i++) {
-        free(strs[i]);
-    }
-    free(strs);
-    return NULL;
+static char **ft_free_splits(char **strs, int count)
+{
+    while (count--)
+		free(strs[count]);
+	free(strs);
+	return (NULL);
 }
 
 char **cmd_split(char const *s)
 {
+    int wordCount;
+    const char *start;
+
     if (!s)
         return NULL;
-
-    int wordCount = ft_countwords(s);
+    wordCount = ft_countwords(s);
     char **strs = malloc(sizeof(char *) * (wordCount + 1));
     if (!strs)
         return NULL;
 
     int i = 0;
-    while (*s) {
+    while (*s)
+    {
         while (*s == ' ')
             s++;
-
         if (*s == '\0')
             break;
-
-        if (*s == '\'') {
+        if (*s == '\'')
+        {
             s++;  
-            const char *start = s;
+            start = s;
             while (*s && *s != '\'')  
                 s++;
             int len = s - start;
@@ -60,9 +66,12 @@ char **cmd_split(char const *s)
                 return ft_free_splits(strs, i);
             }
             i++;
-            if (*s) s++;   
-        } else {  
-            const char *start = s;
+            if (*s)
+                s++;   
+        }
+        else
+        {  
+            start = s;
             while (*s && *s != ' ' && *s != '\'')  
                 s++;
             int len = s - start;
