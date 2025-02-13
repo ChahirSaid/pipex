@@ -1,25 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-size_t ft_strlen(const char *str) {
-    size_t i = 0;
-    while (str[i])
-        i++;
-    return i;
-}
-
-size_t ft_strlcpy(char *dest, const char *src, size_t size) {
-    size_t len = ft_strlen(src);
-    if (size == 0)
-        return len;
-    size_t i = 0;
-    while (src[i] && i < (size - 1)) {
-        dest[i] = src[i];
-        i++;
-    }
-    dest[i] = 0;
-    return len;
-}
+#include "pipex.h"
 
 int ft_countwords(const char *str) {
     int count = 0;
@@ -36,13 +15,6 @@ int ft_countwords(const char *str) {
     return count;
 }
 
-static int ft_wordlen(const char *str) {
-    int len = 0;
-    while (str[len] && str[len] != ' ' && str[len] != '\'') 
-        len++;
-    return len;
-}
-
 static char *ft_worddup(const char *str, int len) {
     char *copy = malloc(len + 1);
     if (!copy)
@@ -51,7 +23,7 @@ static char *ft_worddup(const char *str, int len) {
     return copy;
 }
 
-static char **ft_free_split(char **strs, int count) {
+static char **ft_free_splits(char **strs, int count) {
     for (int i = 0; i < count; i++) {
         free(strs[i]);
     }
@@ -59,7 +31,8 @@ static char **ft_free_split(char **strs, int count) {
     return NULL;
 }
 
-char **cmd_split(char const *s) {
+char **cmd_split(char const *s)
+{
     if (!s)
         return NULL;
 
@@ -84,7 +57,7 @@ char **cmd_split(char const *s) {
             int len = s - start;
             strs[i] = ft_worddup(start, len);
             if (!strs[i]) {
-                return ft_free_split(strs, i);
+                return ft_free_splits(strs, i);
             }
             i++;
             if (*s) s++;   
@@ -95,7 +68,7 @@ char **cmd_split(char const *s) {
             int len = s - start;
             strs[i] = ft_worddup(start, len);
             if (!strs[i]) {
-                return ft_free_split(strs, i);
+                return ft_free_splits(strs, i);
             }
             i++;
         }
@@ -105,14 +78,14 @@ char **cmd_split(char const *s) {
     return strs;
 }
 
-int main() {
-    char **result = cmd_split("Hello 'world this' is a test");
-    if (result) {
-        for (int i = 0; result[i] != NULL; i++) {
-            printf("%s\n", result[i]);
-            free(result[i]);
-        }
-        free(result);
-    }
-    return 0;
-}
+// int main() {
+//     char **result = cmd_split("Hello 'world this' is a test");
+//     if (result) {
+//         for (int i = 0; result[i] != NULL; i++) {
+//             printf("%s\n", result[i]);
+//             free(result[i]);
+//         }
+//         free(result);
+//     }
+//     return 0;
+// }

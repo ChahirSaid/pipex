@@ -6,7 +6,7 @@
 /*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:42:50 by schahir           #+#    #+#             */
-/*   Updated: 2025/02/13 14:12:00 by schahir          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:17:57 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	ft_init(t_pipex *pipex, char **av, char **envp)
 
 	pipex->av = av;
 	pipex->envp = envp;
-	pipex->cmd1 = ft_split(av[2], ' ');
+	pipex->cmd1 = cmd_split(av[2]);
 	if (!pipex->cmd1 || !pipex->cmd1[0] || pipex->cmd1[0][0] == '\0')
 	{
 		ft_printf("pipex: invalid command: %s\n", av[2]);
 		exit(1);
 	}
-	pipex->cmd2 = ft_split(av[3], ' ');
+	pipex->cmd2 = cmd_split(av[3]);
 	if (!pipex->cmd2 || !pipex->cmd2[0] || pipex->cmd2[0][0] == '\0')
 	{
 		ft_free_split(pipex->cmd1);

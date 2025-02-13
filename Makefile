@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = mandatory/main.c mandatory/open.c mandatory/path.c mandatory/pipe.c mandatory/utils.c
+SRCS = mandatory/main.c mandatory/open.c mandatory/path.c mandatory/pipe.c mandatory/utils.c mandatory/cmd_split.c
 OBJ = $(SRCS:.c=.o)
 NAME = pipex
 LIBFT_PATH = ./libft

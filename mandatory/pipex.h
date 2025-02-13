@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: schahir <schahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:57:08 by schahir           #+#    #+#             */
-/*   Updated: 2025/02/10 20:37:38 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/13 15:42:45 by schahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	ft_cmd2(t_pipex *pipex);
 void	ft_free_split(char **str);
 void	ft_free(t_pipex *pipex);
 void	ft_close_fd(t_pipex *pipex);
+char **cmd_split(char const *s);
 
 #endif

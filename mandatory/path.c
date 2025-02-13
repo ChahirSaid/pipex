@@ -42,7 +42,6 @@ char	*get_path(t_pipex *pipex, char *command)
 	int		i;
 	char	*str;
 	char	*cmd;
-
 	if (ft_strchr(command, '/'))
 	{
 		if (access(command, X_OK) == 0)
