@@ -20,7 +20,7 @@ void	ft_open(t_pipex *pipex)
 	{
 		close(pipex->fd1);
 		close(pipex->fd2);
-		ft_printf("pipex: pipe");
+		perror("pipex: pipe");
 		ft_free(pipex);
 		exit(1);
 	}

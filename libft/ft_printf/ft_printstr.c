@@ -40,7 +40,7 @@ int	handle_null(t_format flag)
 int	ft_putnstr(char *s, int n)
 {
 	if (s)
-		return (write(2, s, n));
+		return (write(1, s, n));
 	return (0);
 }
 

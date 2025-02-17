@@ -22,7 +22,7 @@
  */
 int	ft_putchar(char c)
 {
-	return (write(2, &c, 1));
+	return (write(1, &c, 1));
 }
 
 /**
@@ -39,7 +39,7 @@ int	ft_putnchar(char c, int n)
 
 	total = 0;
 	while (n-- > 0)
-		total += write(2, &c, 1);
+		total += write(1, &c, 1);
 	return (total);
 }
 

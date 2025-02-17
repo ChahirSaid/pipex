@@ -59,7 +59,7 @@ static int	ft_printnbr(t_format flag, char *nb, int len, int is_neg)
 	else if (flag.space && ft_strncmp(nb, "-2147483648", 12))
 		t += ft_putnchar(' ', !flag.zero || flag.dot);
 	t += ft_putnchar('0', flag.precision - len);
-	t += write(2, nb, len);
+	t += write(1, nb, len);
 	if (flag.minus && flag.wdth > flag.precision)
 		t += ft_putnchar(' ', flag.wdth - flag.precision - is_neg - flag.plus);
 	return (t);

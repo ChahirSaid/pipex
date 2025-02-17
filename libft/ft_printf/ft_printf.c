@@ -87,7 +87,7 @@ static int	process_format(const char **str, va_list args)
 	total = 0;
 	if (!validate_format(start))
 	{
-		total += write(2, start, 1);
+		total += write(1, start, 1);
 		(*str)++;
 		return (total);
 	}

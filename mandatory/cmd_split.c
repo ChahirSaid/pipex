@@ -86,15 +86,3 @@ char **cmd_split(char const *s)
     strs[i] = NULL;
     return strs;
 }
-
-// int main() {
-//     char **result = cmd_split("Hello 'world this' is a test");
-//     if (result) {
-//         for (int i = 0; result[i] != NULL; i++) {
-//             printf("%s\n", result[i]);
-//             free(result[i]);
-//         }
-//         free(result);
-//     }
-//     return 0;
-// }

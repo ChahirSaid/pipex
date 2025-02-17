@@ -22,14 +22,14 @@ void	ft_init(t_pipex *pipex, char **av, char **envp)
 	pipex->cmd1 = cmd_split(av[2]);
 	if (!pipex->cmd1 || !pipex->cmd1[0] || pipex->cmd1[0][0] == '\0')
 	{
-		ft_printf("pipex: invalid command: %s\n", av[2]);
+		perror("pipex: invalid command.\n");
 		exit(1);
 	}
 	pipex->cmd2 = cmd_split(av[3]);
 	if (!pipex->cmd2 || !pipex->cmd2[0] || pipex->cmd2[0][0] == '\0')
 	{
 		ft_free_split(pipex->cmd1);
-		ft_printf("pipex: invalid command: %s\n", av[3]);
+		perror("pipex: invalid command.\n");
 		exit(1);
 	}
 	get_env(pipex);
@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **envp)
 	status2 = 0;
 	if (ac != 5 || !av[2][0] || !av[3][0])
 	{
-		ft_printf("Invalid input.\n");
+		perror("Invalid input.\n");
 		exit(1);
 	}
 	ft_init(&pipex, av, envp);

@@ -18,7 +18,7 @@ void	ft_cmd1(t_pipex *pipex)
 	if (pipex->pid1 == -1)
 	{
 		ft_close_fd(pipex);
-		ft_printf("pipex: fork");
+		perror("pipex: fork");
 		ft_free(pipex);
 		exit(1);
 	}
@@ -26,14 +26,14 @@ void	ft_cmd1(t_pipex *pipex)
 	{
 		if (!pipex->cmd1[0])
 		{
-			ft_printf("pipex: command not found: \n");
+			perror("pipex: command not found: \n");
 			ft_free(pipex);
 			exit(127);
 		}
 		if (pipex->fd1 == -1)
 		{
 			close(pipex->fd2);
-			ft_printf("pipex: outfile");
+			perror("pipex: outfile");
 			ft_free(pipex);
 			exit(1);
 		}
@@ -44,7 +44,7 @@ void	ft_cmd1(t_pipex *pipex)
 		close(pipex->fd1);
 		if (execve(pipex->cmd1[0], pipex->cmd1, pipex->envp) == -1)
 		{
-			ft_printf("pipex: execve");
+			perror("pipex: execve");
 			ft_close_fd(pipex);
 			ft_free(pipex);
 			exit(1);
@@ -60,7 +60,7 @@ void	ft_cmd2(t_pipex *pipex)
 	if (pipex->pid2 == -1)
 	{
 		ft_close_fd(pipex);
-		ft_printf("pipex: fork");
+		perror("pipex: fork");
 		ft_free(pipex);
 		exit(1);
 	}
@@ -68,14 +68,14 @@ void	ft_cmd2(t_pipex *pipex)
 	{
 		if (!pipex->cmd2[0])
 		{
-			ft_printf("pipex: command not found: \n");
+			perror("pipex: command not found: \n");
 			ft_free(pipex);
 			exit(127);
 		}
 		if (pipex->fd2 == -1)
 		{
 			close(pipex->fd1);
-			ft_printf("pipex: outfile");
+			perror("pipex: outfile");
 			ft_free(pipex);
 			exit(1);
 		}
@@ -86,7 +86,7 @@ void	ft_cmd2(t_pipex *pipex)
 		close(pipex->fd2);
 		if (execve(pipex->cmd2[0], pipex->cmd2, pipex->envp) == -1)
 		{
-			ft_printf("pipex: execve");
+			perror("pipex: execve");
 			ft_close_fd(pipex);
 			ft_free(pipex);
 			exit(1);

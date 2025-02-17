@@ -13,12 +13,12 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 # include "../libft/includes/libft.h"
-# include "../libft/includes/ft_printf.h"
 
 typedef struct s_pipex {
 	char	**av;
