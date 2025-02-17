@@ -19,7 +19,6 @@
 #include <stdio.h>
 # include <sys/wait.h>
 # include "../libft/includes/libft.h"
-# include "../libft/includes/ft_printf.h"
 
 typedef struct s_pipex {
     char    **av;

@@ -30,7 +30,7 @@ void	ft_init(t_pipex *pipex, int ac, char **av, char **envp)
 		if (!pipex->cmds[i] || !pipex->cmds[i][0]
 			|| pipex->cmds[i][0][0] == '\0')
 		{
-			ft_printf("pipex: invalid command\n");
+			perror("pipex: invalid command\n");
 			ft_free(pipex);
 			exit(1);
 		}
@@ -38,7 +38,7 @@ void	ft_init(t_pipex *pipex, int ac, char **av, char **envp)
 		pipex->cmds[i][0] = get_path(pipex, a);
 		if (!pipex->cmds[i][0])
 		{
-			ft_printf("pipex: command not found\n");
+			perror("pipex: command not found\n");
 			ft_free(pipex);
 			exit(127);
 		}
@@ -59,7 +59,7 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac < 4)
 	{
-		ft_printf("Usage: %s infile cmd1 cmd2 ... cmdn outfile\n", av[0]);
+		perror("Invalid input");
 		exit(1);
 	}
 	ft_init(&pipex, ac, av, envp);
