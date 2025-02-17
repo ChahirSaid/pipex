@@ -10,18 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	ft_open(t_pipex *pipex)
+void	ft_open(t_pipex *pipex, int ac)
 {
 	pipex->fd1 = open(pipex->av[1], O_RDONLY);
-	pipex->fd2 = open(pipex->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (pipe(pipex->pipefd) == -1)
-	{
-		close(pipex->fd1);
-		close(pipex->fd2);
-		ft_printf("pipex: pipe");
-		ft_free(pipex);
-		exit(1);
-	}
+	pipex->fd2 = open(pipex->av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }

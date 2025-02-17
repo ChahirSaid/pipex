@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	ft_free_split(char **str)
 {
@@ -23,18 +23,20 @@ void	ft_free_split(char **str)
 }
 void	ft_free(t_pipex *pipex)
 {
-	if (pipex->cmd1)
-		ft_free_split(pipex->cmd1);
-	if (pipex->cmd2)
-		ft_free_split(pipex->cmd2);
+	int	i;
+
+	if (pipex->cmds)
+	{
+		i = 0;
+		while (i < pipex->num_cmds)
+		{
+			ft_free_split(pipex->cmds[i]);
+			i++;
+		}
+		free(pipex->cmds);
+	}
 	if (pipex->env)
 		ft_free_split(pipex->env);
-}
-
-void	ft_close_fd(t_pipex *pipex)
-{
-	close(pipex->pipefd[0]);
-	close(pipex->pipefd[1]);
-	close(pipex->fd1);
-	close(pipex->fd2);
+	if (pipex->pids)
+		free(pipex->pids);
 }
