@@ -23,6 +23,7 @@ void	ft_init(t_pipex *pipex, int ac, char **av, char **envp)
 	pipex->cmds = malloc(sizeof(char **) * pipex->num_cmds);
 	if (!pipex->cmds)
 		exit(1);
+	get_env(pipex);
 	i = 0;
 	while (i < pipex->num_cmds)
 	{
@@ -46,7 +47,6 @@ void	ft_init(t_pipex *pipex, int ac, char **av, char **envp)
 			free(a);
 		i++;
 	}
-	get_env(pipex);
 }
 
 int	main(int ac, char **av, char **envp)
