@@ -27,25 +27,32 @@ void	ft_init(t_pipex *pipex, int ac, char **av, char **envp)
 	i = 0;
 	while (i < pipex->num_cmds)
 	{
-		pipex->cmds[i] = cmd_split(av[2 + i]);
-		if (!pipex->cmds[i] || !pipex->cmds[i][0]
-			|| pipex->cmds[i][0][0] == '\0')
-		{
-			perror("pipex: invalid command\n");
-			ft_free(pipex);
-			exit(1);
-		}
-		a = pipex->cmds[i][0];
-		pipex->cmds[i][0] = get_path(pipex, a);
-		if (!pipex->cmds[i][0])
-		{
-			perror("pipex: command not found\n");
-			ft_free(pipex);
-			exit(127);
-		}
-		if (a != pipex->cmds[i][0])
-			free(a);
-		i++;
+    pipex->cmds[i] = cmd_split(av[2 + i]);
+    if (!pipex->cmds[i] || !pipex->cmds[i][0] || pipex->cmds[i][0][0] == '\0')
+    {
+        perror("pipex: invalid command");
+        for (int j = 0; j < i; j++)
+            ft_free_split(pipex->cmds[j]);
+        if (pipex->cmds[i])
+            ft_free_split(pipex->cmds[i]);
+        free(pipex->cmds);
+        ft_free_split(pipex->env);
+        exit(1);
+    }
+    a = pipex->cmds[i][0];
+    pipex->cmds[i][0] = get_path(pipex, a);
+    if (!pipex->cmds[i][0])
+    {
+        perror("pipex: command not found");
+        for (int j = 0; j <= i; j++)
+            ft_free_split(pipex->cmds[j]);
+        free(pipex->cmds);
+        ft_free_split(pipex->env);
+        exit(127);
+    }
+    if (a != pipex->cmds[i][0])
+        free(a);
+    i++;
 	}
 }
 
@@ -71,7 +78,10 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (i < pipex.num_cmds - 1 && pipe(pipefd) == -1)
 		{
-			perror("pipe");
+			close(pipex.fd1);
+			close(pipex.fd2);
+			perror("pipex: pipe");
+			ft_free(&pipex);
 			exit(1);
 		}
 		pipex.pids[i] = fork();

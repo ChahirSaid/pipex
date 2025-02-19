@@ -15,5 +15,10 @@
 void	ft_open(t_pipex *pipex, int ac)
 {
 	pipex->fd1 = open(pipex->av[1], O_RDONLY);
+	if (pipex->fd1 == -1)
+    {
+        perror("pipex: input file");
+        exit (1);
+    }
 	pipex->fd2 = open(pipex->av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }

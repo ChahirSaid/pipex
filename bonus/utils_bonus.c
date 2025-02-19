@@ -16,6 +16,8 @@ void	ft_free_split(char **str)
 {
 	int	i;
 
+	if (!str)
+		return ;
 	i = 0;
 	while (str[i])
 		free(str[i++]);
