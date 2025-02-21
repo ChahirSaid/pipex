@@ -12,48 +12,60 @@
 
 #include "pipex_bonus.h"
 
-void	ft_init(t_pipex *pipex, int ac, char **av, char **envp)
+void ft_init(t_pipex *pipex, int ac, char **av, char **envp)
 {
-	int		i;
-	char	*a;
+    int     i;
+    char    *a;
+    int     av_idx;
 
-	pipex->av = av;
-	pipex->envp = envp;
-	pipex->num_cmds = ac - 3;
-	pipex->cmds = malloc(sizeof(char **) * pipex->num_cmds);
-	if (!pipex->cmds)
-		exit(1);
-	get_env(pipex);
-	i = 0;
-	while (i < pipex->num_cmds)
-	{
-    pipex->cmds[i] = cmd_split(av[2 + i]);
-    if (!pipex->cmds[i] || !pipex->cmds[i][0] || pipex->cmds[i][0][0] == '\0')
+    pipex->av = av;
+    pipex->envp = envp;
+    pipex->here_doc = 0;
+    if (ac > 1 && ft_strcmp(av[1], "here_doc") == 0)
     {
-        perror("pipex: invalid command");
-        for (int j = 0; j < i; j++)
-            ft_free_split(pipex->cmds[j]);
-        if (pipex->cmds[i])
-            ft_free_split(pipex->cmds[i]);
-        free(pipex->cmds);
-        ft_free_split(pipex->env);
+        pipex->here_doc = 1;
+        pipex->num_cmds = ac - 4;
+    }
+    else
+        pipex->num_cmds = ac - 3;
+    pipex->cmds = malloc(sizeof(char **) * pipex->num_cmds);
+    if (!pipex->cmds)
         exit(1);
-    }
-    a = pipex->cmds[i][0];
-    pipex->cmds[i][0] = get_path(pipex, a);
-    if (!pipex->cmds[i][0])
+    get_env(pipex);
+    i = 0;
+    while (i < pipex->num_cmds)
     {
-        perror("pipex: command not found");
-        for (int j = 0; j <= i; j++)
-            ft_free_split(pipex->cmds[j]);
-        free(pipex->cmds);
-        ft_free_split(pipex->env);
-        exit(127);
+        if (pipex->here_doc)
+            av_idx = 3 + i;
+        else
+            av_idx = 2 + i;
+        pipex->cmds[i] = cmd_split(av[av_idx]);
+        if (!pipex->cmds[i] || !pipex->cmds[i][0] || pipex->cmds[i][0][0] == '\0')
+        {
+            perror("pipex: invalid command");
+            for (int j = 0; j < i; j++)
+                ft_free_split(pipex->cmds[j]);
+            if (pipex->cmds[i])
+                ft_free_split(pipex->cmds[i]);
+            free(pipex->cmds);
+            ft_free_split(pipex->env);
+            exit(1);
+        }
+        a = pipex->cmds[i][0];
+        pipex->cmds[i][0] = get_path(pipex, a);
+        if (!pipex->cmds[i][0])
+        {
+            perror("pipex: command not found");
+            for (int j = 0; j <= i; j++)
+                ft_free_split(pipex->cmds[j]);
+            free(pipex->cmds);
+            ft_free_split(pipex->env);
+            exit(127);
+        }
+        if (a != pipex->cmds[i][0])
+            free(a);
+        i++;
     }
-    if (a != pipex->cmds[i][0])
-        free(a);
-    i++;
-	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -64,13 +76,17 @@ int	main(int ac, char **av, char **envp)
 	int     pipefd[2];
 	int		status;
 
-	if (ac < 4)
+	if (ac < 5 || (ft_strcmp(av[1], "here_doc") == 0 && ac < 6))
 	{
-		perror("Invalid input");
+		ft_putstr_fd("Invalid number of arguments\n", STDERR_FILENO);
 		exit(1);
 	}
 	ft_init(&pipex, ac, av, envp);
-	ft_open(&pipex, ac);
+    
+    if (pipex.here_doc)
+        handle_here_doc(&pipex, av[2]);
+    else
+		ft_open(&pipex, ac);
 	prev_pipe = -1;
 	pipex.pids = malloc(sizeof(pid_t) * pipex.num_cmds);
 	i = 0;

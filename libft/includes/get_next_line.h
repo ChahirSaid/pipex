@@ -16,7 +16,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+# include "libft.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # elif BUFFER_SIZE < 0
@@ -25,9 +25,5 @@
 # endif
 
 char	*get_next_line(int fd);
-void	*ft_calloc(size_t count, size_t size);
-size_t	ft_strlen(const char *str);
-char	*ft_joinbuffer(char *str1, char *str2);
-int		ft_haschar(char *str, char target);
 
 #endif /* GET_NEXT_LINE_H */

@@ -19,6 +19,7 @@
 #include <stdio.h>
 # include <sys/wait.h>
 # include "../libft/includes/libft.h"
+# include "../libft/includes/get_next_line.h"
 
 typedef struct s_pipex {
     char    **av;
@@ -29,6 +30,7 @@ typedef struct s_pipex {
     int     fd1;
     int     fd2;
     pid_t   *pids;
+    int     here_doc;
 }   t_pipex;
 
 void	get_env(t_pipex *pipex);
@@ -36,7 +38,9 @@ char	*get_path(t_pipex *pipex, char *command);
 void	ft_open(t_pipex *pipex, int ac);
 void	ft_free_split(char **str);
 void	ft_free(t_pipex *pipex);
+void    exitperror(char *msg, t_pipex *pipex);
 void	ft_close_fd(t_pipex *pipex);
 char	**cmd_split(char const *s);
+void	handle_here_doc(t_pipex *pipex, char *limiter_arg);
 
 #endif

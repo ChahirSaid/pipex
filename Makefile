@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRCS = mandatory/main.c mandatory/open.c mandatory/path.c mandatory/pipe.c mandatory/utils.c mandatory/cmd_split.c
 OBJ = $(SRCS:.c=.o)
 
-BONUS_SRCS = bonus/main_bonus.c bonus/open_bonus.c mandatory/path.c bonus/utils_bonus.c mandatory/cmd_split.c
+BONUS_SRCS = bonus/main_bonus.c bonus/open_bonus.c mandatory/path.c bonus/utils_bonus.c bonus/here_doc.c mandatory/cmd_split.c
 BONUS_OBJ = $(BONUS_SRCS:.c=.o)
 
 NAME = pipex
